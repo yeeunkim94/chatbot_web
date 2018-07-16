@@ -1,0 +1,104 @@
+package ib.net;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Calendar;
+import java.util.Random;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+
+@Controller
+public class RegisteringController {
+
+	@GetMapping("/registering")
+	public String greetingForm(Model model) {
+		model.addAttribute("registering", new Registering());
+		return "registering";
+	}
+	
+	@PostMapping("/registering")
+	public String RegisteringSubmit(HttpServletRequest req, @ModelAttribute Registering registering) {
+
+		String File_Name = registering.getId();
+		String FILENAME = "register/" + File_Name + ".txt";
+		
+		//String.format("C:\\Users\\yeeunkim\\Desktop\\register\\%s.txt", File_Name);
+		
+		File f = new File("register");
+		
+		if(!f.exists()) {
+			f.mkdir(); //register folder 만들기
+		}
+		
+		
+		//String FILENAME = req.getRealPath(File_Name + ".txt");
+		
+		BufferedWriter bw = null;
+		FileWriter fw = null;
+
+		//기사님 이름 5개 중에 랜덤으로 뽑기
+		String[] deliver = new String[5];
+		deliver[0] = "박서준";
+		deliver[1] = "류준열";
+		deliver[2] = "박민영";
+		deliver[3] = "이준호";
+		deliver[4] = "정려원";
+		int random;
+		Random rand = new Random();
+		random = rand.nextInt(5);
+		
+		//날짜 정하기
+		
+		Calendar cal = Calendar.getInstance();
+		
+		int month = cal.get(Calendar.MONTH) + 1;
+		int date = cal.get(Calendar.DATE) + 3;
+		
+		
+		try {
+			String content = 
+					registering.getContent() + "\n" +
+					registering.getId() + "\n" +
+					deliver[random] + " 기사님이 " + month + "월 " + date + "일에 방문예정입니다.";
+			
+			fw = new FileWriter(FILENAME);
+			bw = new BufferedWriter(fw);
+			bw.write(content);
+			
+			System.out.println("Done");
+						
+		} 
+		
+		catch(IOException e) {
+			e.printStackTrace();
+		} 
+		
+		finally {
+			
+			try {
+				
+				if(bw != null)
+					bw.close();
+				
+				if(fw != null)
+					fw.close();
+			} catch (IOException ex) {
+				
+				ex.printStackTrace();
+			}
+		}
+		
+		
+		return "EndRegister";
+	}
+	
+	
+}
