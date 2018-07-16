@@ -1,0 +1,53 @@
+package ib.net;
+
+import java.io.IOException;
+import java.util.Map;
+
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+
+@Controller
+@RestController
+@EnableAutoConfiguration
+public class Errorcode{
+	
+	@PostMapping("errorcode")
+	public String errorcode(
+			@RequestBody Map<String, Object> payload) throws IOException {
+		System.out.println("======================errorcode : test=========================");
+		System.out.println(payload.get("entity1"));
+		//return "test04에서 받은 entity는 " + payload.get("entity1");
+		
+		if(payload.get("entity1").equals("AA01"))
+			return "불꽃 감지에 이상이 생겨 점화가 되지 않거나 점화가 되었다가 바로 안전차단이 일어나는 경우입니다.";
+		
+		else if(payload.get("entity1").equals("AA04"))
+			return "보일러내 센서부에 이상이 생긴 경우입니다.";
+		
+		else if(payload.get("entity1").equals("AA06"))
+			return "보일러내 센서부에 이상이 생긴 경우입니다.";
+		
+		else if(payload.get("entity1").equals("AA07"))
+			return "보일러내 배풍기 회전수가 감지되지 않는 경우입니다.";
+		
+		else if(payload.get("entity1").equals("AA22"))
+			return "배풍기 회전수가 낮거나 높은 경우로 배풍기 케이스에 이물질이 끼어 있어 발생할 수 있습니다.";
+		
+		else if(payload.get("entity1").equals("AA96"))
+			return "과열 안전장치가 작동된 경우로 보일러 난방수 온도가 너무 높아 안전을 위하여 보일러 가동을 정지시킨 상태입니다.";
+		
+		else if(payload.get("entity1").equals("AA98"))
+			return "배기과열안전장치 또는 지진감지센서가 작동된 상태입니다.";
+		
+		else
+			return "해당하는 에러코드가 존재하지 않습니다. 에러코드를 정확히 입력해 주세요.";
+			
+    }
+	
+}
+
