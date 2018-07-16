@@ -1,0 +1,17 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>A/S 접수</title>
+    
+</head>
+<body onload="load_page()">
+	<h1>A/S 접수</h1>
+    <form action="#" th:action="@{/registering}" th:object="${registering}" method="post">
+  		<p>이름 : <input id="name1" type="text" th:field="*{content}" /></p>
+    	<p>전화번호 : <input id="phn" type="text" th:field="*{id}" /></p>
+        <p><input type="submit" value="확인" /> <input type="reset" value="취소" /></p>
+    </form>
+</body>
+</html>
