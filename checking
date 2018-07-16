@@ -1,0 +1,35 @@
+package ib.net;
+
+public class Checking {
+	
+	private String phone_number;
+	private String reserved_contents;
+	private String name;
+
+	
+	public String getPhone_number() {
+		return phone_number;
+	}
+
+	public void setPhone_number(String phone_number) {
+		this.phone_number = phone_number;
+	}
+
+	public String getReserved_contents() {
+		return reserved_contents;
+	}
+
+	public void setReserved_contents(String reserved_contents) {
+		this.reserved_contents = reserved_contents;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
+}
