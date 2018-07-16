@@ -1,0 +1,16 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>A/S 접수</title>
+    
+</head>
+<body>
+	<h1>A/S 접수</h1>
+	<p th:text="'이름 : ' + ${registering.content}" />
+    <p th:text="'전화번호 : ' + ${registering.id}" />
+    <p th:text="'A/S 접수가 완료되었습니다'" />
+    
+</body>
+</html>
