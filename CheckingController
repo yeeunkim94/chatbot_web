@@ -1,0 +1,88 @@
+package ib.net;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+
+@Controller
+public class CheckingController {
+
+	@GetMapping("/checking")
+	public String checkingForm(Model model) {
+		model.addAttribute("checking", new Checking());
+		return "checking";
+	}
+
+	@PostMapping("/checking")
+	public String CheckingSubmit(HttpServletRequest req, @ModelAttribute Checking checking) {
+		
+		String File_Name = checking.getPhone_number();
+		// String.format("C:\\Users\\yeeunkim\\Desktop\\register\\%s.txt", File_Name);
+		//String FILENAME = req.getRealPath(File_Name + ".txt");
+		
+		
+		String FILENAME = "register/" + File_Name + ".txt";
+		System.out.println(File_Name);
+		
+		
+		BufferedReader br = null;
+		FileReader fr = null;
+
+		try {
+
+			fr = new FileReader(FILENAME);
+			br = new BufferedReader(fr);
+
+			String sCurrentLine;
+			int num = 0;
+			
+			while ((sCurrentLine = br.readLine()) != null) {
+				
+				if(num==0) 
+					checking.setName(sCurrentLine);
+				
+				else if(num==1)
+					checking.setPhone_number(sCurrentLine);
+				
+				else if(num==2)
+					checking.setReserved_contents(sCurrentLine);
+				
+				num++;
+		
+			}
+			//checking.setReserved_contents();
+		}
+
+		
+		catch (IOException e) {
+			
+			checking.setName("");
+			checking.setPhone_number("");
+			checking.setReserved_contents("A/S 신청 내역이 없습니다");
+			e.printStackTrace();
+		}
+
+		finally {
+			try {
+				if (br != null)
+					br.close();
+
+				if (fr != null)
+					fr.close();
+			} catch (IOException ex) {
+				ex.printStackTrace();
+			}
+		}
+
+		return "EndChecking";
+	}
+
+}
