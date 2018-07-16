@@ -1,0 +1,16 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>A/S 기사 확인</title>
+    
+</head>
+<body>
+	<h1>A/S 기사 확인</h1>
+    <form action="#" th:action="@{/checking}" th:object="${checking}" method="post">
+    	<p>전화번호: <input type="text" th:field="*{phone_number}" /></p>
+        <p><input type="submit" value="확인" /> <input type="reset" value="취소" /></p>
+    </form>
+</body>
+</html>
